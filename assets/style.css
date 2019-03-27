@@ -1,0 +1,36 @@
+
+
+h1{
+    color: darkturquoise;
+    font-size: 30px;
+    letter-spacing: 3px;
+    /* text-align: center; */
+}
+#searchBtn{
+    color:  mediumorchid; 
+    border-color: mediumorchid;
+    background-color: white;
+}
+button{
+    color:  darkturquoise; 
+    border-color: darkturquoise;
+    background-color: white;
+    margin: 2px;
+}
+
+#searchBtn:hover{
+    background-color: mediumorchid;
+    outline-color: mediumorchid;
+    color: white;
+}
+#searchBtn:focus{
+    outline-color: mediumorchid;
+}
+#formDiv {
+    align-content: flex-end;
+}
+
+/* #whatUserSearched{
+    margin-left: auto;
+    margin-right: auto;
+} */
