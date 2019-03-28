@@ -91,9 +91,9 @@
             //clears out the input
             $('#buttonsDiv').empty()
 
-            //**********************************************************************************
+            //
             //if the user input's value = an empty string, dont add it to the array
-            //**********************************************************************************
+            //
 
 
             //event listener
@@ -121,45 +121,40 @@
         
         makeButtons()
         
-        
-        
-        
-        //NEEDS A FUNCTION THAT WILL MAKE THE AJAX CALL TO RETRIEVE THE DATA
-        //THEN, IT NEEDS TO BE APPENDED TO THE RESULTSDIV
-        function getAndDisplayResults(){ 
-
-            //all buttons have a class of btn so when any of the buttons are clicked, we'll give it an attribute and get the value
-            //all buttons should have an "emo-data" attribute added to them in  the for each loop
-            
-            
-            // event.preventDefault()
-            
-            //take the value of what the user typed and and store it as a var = emotion so that we can input it it our query link
+        function getAndDisplayResults() {
+            //         //all buttons have a class of btn so when any of the buttons are clicked, we'll give it an attribute and get the value
+            //         //all buttons should have an "emo-data" attribute added to them in  the for each loop
             var emotion = $(this).attr('emo-data')
-            console.log(this)
-            
-            var APIKey ='dj24QtphGWzPDgZeL6xbGqreZAG2JVkg'
-            var queryURL = 'https://api.giphy.com/v1/gifs/search?api_key=dj24QtphGWzPDgZeL6xbGqreZAG2JVkg&q=' + emotion + '&limit=' + numberOfGifsDisplayed + '&offset=0&rating=G&lang=en'
-            
-            var anyBtnClicked = document.getElementsByClassName("btn") 
-            
-            
-                
-                //this is where the ajax call will be made
-                $.ajax({
-                    URL: queryURL,
-                    Method: 'GET'
-                }).then(function(response) {
-                    console.log(response)
-                })
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + emotion +
+                "&api_key=dj24QtphGWzPDgZeL6xbGqreZAG2JVkg&limit=10";
+
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                console.log(response);
+                console.log(response.data);
+
+                var results = response.data;
                 // TO - DO LIST.....
                 //display it
                 //(add it to the div)
         
+            });
         }
-          // Adding click event listeners to all elements with a class of "movie"
-      $(document).on("click", ".btn", getAndDisplayResults);
+           // Adding click event listeners to all elements with a class of "btn"
+        $(document).on("click", ".btn", getAndDisplayResults);
         
+        
+    //     //NEEDS A FUNCTION THAT WILL MAKE THE AJAX CALL TO RETRIEVE THE DATA
+    //     //THEN, IT NEEDS TO BE APPENDED TO THE RESULTSDIV
+    //     function getAndDisplayResults(){ 
+
+            
+            
+    //      
+      
         </script>
 </body>
 
