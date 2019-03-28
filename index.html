@@ -14,12 +14,10 @@
 
 <body>
     <div id="container">
-        <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-dark bg-dark" style="background-color: #e3f2fd;">
             <!-- Navbar content -->
 
-            <!-- buttonsDiv  will go here -->
-            <div id='buttonsDiv'></div>
-            <br>
+           
 
             <div id="formDiv">
 
@@ -32,6 +30,9 @@
 
             </div>
         </nav>
+         <!-- buttonsDiv  will go here -->
+         <div id='buttonsDiv' style="background-color: black;"></div>
+         <br>
         <!-- gify resultsDiv will go here -->
 
         <div id='resultsDiv'></div>
@@ -44,92 +45,122 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         // GLOBAL VARIABLES
-
+        
         var topics = ['curious', 'suspicious', 'surprised', 'awkward', 'joyful', 'frustrated', 'persistant', 'sentimental'];
         var numberOfGifsDisplayed = 10;// might not want to make this dynamic
         var userInput;//this is used in the onclick function and in the query URL
+       
+        var searchBtnClicked = document.getElementById("searchBtn")
 
-        // var APIKey ='dj24QtphGWzPDgZeL6xbGqreZAG2JVkg'------------probs don't need this
-        var queryURL = 'https://api.giphy.com/v1/gifs/search?api_key=dj24QtphGWzPDgZeL6xbGqreZAG2JVkg&q=' + userInput + '&limit=' + numberOfGifsDisplayed + '&offset=0&rating=G&lang=en'
-
-
-        //NEEDS A FUNCTION THAT WILL MAKE BUTTONS FOR THE ITEMS IN THE ARRAY
-
+        
+        
+        //FUNCTION THAT WILL MAKE BUTTONS FOR THE ITEMS IN THE ARRAY
+        
         function createTopicBtn(topic) {
+            
+            //creates buttons with each topic in the array
             var addingButtons = document.createElement('button')
-            addingButtons.textContent = topic
+            addingButtons.textContent = topic 
 
+            //adding an attribute for the ajax call function
+            $(addingButtons).attr("emo-data", topic)
+            
+            //adds the bootstrap class to the button
             $(addingButtons).addClass("btn btn-outline-primary")
-
-            //append each item to buttonsDiv?
-            //(this) is the window
+            
+            //append each item to buttonsDiv
             $('#buttonsDiv').append(addingButtons)
         }
-
+        
         function makeButtons() {
-            //clear out
-            // $('#buttonsDiv').empty()
-            //for loop to create a button for each item ib the 
+            
+            //forEach loop to create a button for each item in the array
+            //uses the create topic button function to make buttons for the items that are already in the array
             topics.forEach(createTopicBtn)
         }
-
-
-        // var bootstrapBtn = document.getElementById('button');
-        //        bootstrapBtn.classList.add('btn btn-outline-secondary .btn-lg')
-
-        //NEEDS A FUNCTION THAT WILL TAKE THE USERINPUT AND ADD IT TO THE ARRAY
-        //WITHIN THIS FUNCTION: MAKE SURE TO CALL THE FIRST FUNCTION SO THAT THE NEW ITEMS GET BUTTONS
-
+        
+        
+        
+        
+        //this function adds the user input into the topics array
+        
         function addTotopicsArray() {
-            //clear out the input
+            //clears out the input
             $('#buttonsDiv').empty()
-            var searchBtnClicked = document.getElementById("searchBtn")
+
+            //**********************************************************************************
+            //if the user input's value = an empty string, dont add it to the array
+            //**********************************************************************************
+
+
+            //event listener
             searchBtnClicked.addEventListener('click', function (event) {
-
-                console.log("1st this is " + this)
+                
+                //keeps the page from clearing out when it refreshes
                 event.preventDefault()
-
+                
                 //what happens when the button is click?
                 //take the user input 
-                console.log("this is" + this)
+                
+                //takes the user input and make it a value attribute so that we can use the attribute to call it when we need it
                 var userInput = $('#whatUserSearched').val();
-
-                //add it to the array
+                
+                //adds it to the array
                 topics.push(userInput)
-
+                
                 createTopicBtn(userInput)
-
+                
                 console.log(topics)
+                //if the search button is pressed
             })
         }
-
-
         addTotopicsArray()
-
+        
         makeButtons()
-
+        
+        
+        
+        
         //NEEDS A FUNCTION THAT WILL MAKE THE AJAX CALL TO RETRIEVE THE DATA
         //THEN, IT NEEDS TO BE APPENDED TO THE RESULTSDIV
-        function displayResults() {
-            //this is where the ajax call will be made
-            $.ajax({
-                URL: queryURL,
-                Method: 'GET'
-            }).then(function (response) {
-                console.log(response)
-            })
-            //console.log the response
-            //call it 
-            //display it
-            //(add it to the div)
+        function getAndDisplayResults(){ 
 
+            //all buttons have a class of btn so when any of the buttons are clicked, we'll give it an attribute and get the value
+            //all buttons should have an "emo-data" attribute added to them in  the for each loop
+            
+            
+            // event.preventDefault()
+            
+            //take the value of what the user typed and and store it as a var = emotion so that we can input it it our query link
+            var emotion = $(this).attr('emo-data')
+            console.log(this)
+            
+            var APIKey ='dj24QtphGWzPDgZeL6xbGqreZAG2JVkg'
+            var queryURL = 'https://api.giphy.com/v1/gifs/search?api_key=dj24QtphGWzPDgZeL6xbGqreZAG2JVkg&q=' + emotion + '&limit=' + numberOfGifsDisplayed + '&offset=0&rating=G&lang=en'
+            
+            var anyBtnClicked = document.getElementsByClassName("btn") 
+            
+            
+                
+                //this is where the ajax call will be made
+                $.ajax({
+                    URL: queryURL,
+                    Method: 'GET'
+                }).then(function(response) {
+                    console.log(response)
+                })
+                // TO - DO LIST.....
+                //display it
+                //(add it to the div)
+        
         }
-
-    </script>
+          // Adding click event listeners to all elements with a class of "movie"
+      $(document).on("click", ".btn", getAndDisplayResults);
+        
+        </script>
 </body>
 
 </html>

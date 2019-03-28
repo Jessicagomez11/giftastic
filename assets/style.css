@@ -7,25 +7,33 @@ h1{
     /* text-align: center; */
 }
 #searchBtn{
-    color:  mediumorchid; 
-    border-color: mediumorchid;
-    background-color: white;
-}
-button{
-    color:  darkturquoise; 
-    border-color: darkturquoise;
-    background-color: white;
-    margin: 2px;
-}
-
-#searchBtn:hover{
-    background-color: mediumorchid;
-    outline-color: mediumorchid;
     color: white;
+    border-color: mediumorchid;
+    background-color: mediumorchid;
+}
+#searchBtn:hover{
+   
+    outline-color: mediumorchid;
+    background-color: white;
+    color:  mediumorchid; 
 }
 #searchBtn:focus{
     outline-color: mediumorchid;
 }
+.btn{
+    color: White;
+    border-color: darkturquoise;
+    background-color: darkturquoise;
+    margin: 2px;
+}
+.btn:hover{
+    border-color: darkturquoise;
+   
+    background-color: white;
+    color:  darkturquoise;
+}
+
+
 #formDiv {
     align-content: flex-end;
 }
