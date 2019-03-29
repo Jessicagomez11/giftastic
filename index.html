@@ -24,8 +24,7 @@
                 <form id="form" class="form-inline my-2 my-lg-0">
                     <input id='whatUserSearched' class="form-control mr-sm-2" type="search" placeholder="Search"
                         aria-label="Search">
-                    <button id='searchBtn' class="btn btn-outline-success my-2 my-sm-0" type="submit">Search
-                        GIFY</button>
+                    <button id='searchBtn' class="btn btn-outline-success my-2 my-sm-0" type="submit">Create Button!</button>
                 </form>
 
             </div>
@@ -69,7 +68,7 @@
             $(addingButtons).attr("emo-data", topic)
             
             //adds the bootstrap class to the button
-            $(addingButtons).addClass("btn btn-outline-primary")
+            $(addingButtons).addClass("btn btn-outline-primary emoBtn")
             
             //append each item to buttonsDiv
             $('#buttonsDiv').append(addingButtons)
@@ -122,7 +121,7 @@
         makeButtons()
         
         function getAndDisplayResults() {
-            //         //all buttons have a class of btn so when any of the buttons are clicked, we'll give it an attribute and get the value
+            //         //all buttons that have a class of btn so when any of the buttons are clicked, we'll give it an attribute and get the value
             //         //all buttons should have an "emo-data" attribute added to them in  the for each loop
             var emotion = $(this).attr('emo-data')
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + emotion +
@@ -133,27 +132,67 @@
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                console.log(response);
+                // console.log(response);
                 console.log(response.data);
 
                 var results = response.data;
-                // TO - DO LIST.....
-                //display it
-                //(add it to the div)
-        
-            });
-        }
-           // Adding click event listeners to all elements with a class of "btn"
-        $(document).on("click", ".btn", getAndDisplayResults);
-        
-        
-    //     //NEEDS A FUNCTION THAT WILL MAKE THE AJAX CALL TO RETRIEVE THE DATA
-    //     //THEN, IT NEEDS TO BE APPENDED TO THE RESULTSDIV
-    //     function getAndDisplayResults(){ 
 
+                for (var i = 0; i < results.length; i++) {
+                    //div that will hold everything that is created in js
+                    
+                    gifDiv = $('<div>')
+                    //access to the rating
+                    var Rating = results[i].rating 
+                  
+                     //creating a new p element where the rating will go
+                    var gifRating = $('<p>').text('Rating: ' + Rating)
+                    
+                    //creating a new image element
+                    var newGif =  $('<img>')
+                    //adding an attribute of source to the img element
+                    newGif.attr('src' ,results[i].images.fixed_height_still.url).attr("data-animated",results[i].images.fixed_height.url).attr("class", "picture").attr('data-isAnimated', false)
+ 
+
+                
+                    
+                    gifDiv.prepend(gifRating)
+
+                    gifDiv.prepend(newGif)
+                    
+                    $('#resultsDiv').prepend(gifDiv)
+                    // TO - DO LIST.....
+                    //display it
+                    //(add it to the div)
+                    }
+            });
+
+        }
+
+        function animateGif () {
+                //get the element by id, look for the attribut and save the variable
+                var animatedGif = this.getAttribute('data-animated')
+                //
+                console.log(animatedGif)
+                this.setAttribute('src', animatedGif)
+
+                //replace the still image of the gif to the animated gif..BUT HOW!?        
+    
+                    
+                   
+                    
+                }
+           // Adding click event listeners to all elements with a class of "btn"
+        $(document).on("click", ".emoBtn", getAndDisplayResults);
+        
+
+       
+
+        $(document).on("mouseover", ".picture", animateGif);
+        
+        
+   
             
-            
-    //      
+
       
         </script>
 </body>
