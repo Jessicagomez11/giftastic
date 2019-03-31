@@ -9,34 +9,39 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Stint+Ultra+Expanded|Dawning+of+a+New+Day|Oxygen+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Stint+Ultra+Expanded|Dawning+of+a+New+Day|Oxygen+Mono"
+        rel="stylesheet">
 
 </head>
 
 <body>
     <div id="container">
-        <nav class="navbar navbar-light" >
+        <nav class="navbar navbar-light">
             <!-- Navbar content -->
             <H1 class="first">GifTastic!⚈</h1>
-           
+
 
             <div id="formDiv">
 
                 <form id="form" class="form-inline my-2 my-lg-0">
                     <input id='whatUserSearched' class="form-control mr-sm-2" type="search" placeholder="Search"
                         aria-label="Search">
-                    <button id='searchBtn' class="btn btn-outline-success my-2 my-sm-0" type="submit">Create Button!</button>
+                    <button id='searchBtn' class="btn btn-outline-success my-2 my-sm-0" type="submit">Create
+                        Button!</button>
                 </form>
 
             </div>
         </nav>
-         <!-- buttonsDiv  will go here -->
-         <div id='buttonsDiv'></div>
-         <br>
-        <!-- gify resultsDiv will go here -->
+        <div id='wrapper'>
+      
+                    <!-- buttonsDiv  will go here -->
+                    <div id='buttonsDiv'></div>
+                    <br>
+                    <!-- gify resultsDiv will go here -->
 
-        <div id='resultsDiv'></div>
-
+                    <div id='resultsDiv' class></div>
+            
+        </div>
     </div>
 
 
@@ -48,45 +53,45 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         // GLOBAL VARIABLES
-        
-        var topics = ['curious', 'shy', 'surprised', 'awkward', 'happy', 'frustrated', 'annoyed', 'confident','sarcastic', 'innocent','guilty', 'disgusted'];
-       
+
+        var topics = ['curious', 'timid', 'surprised', 'awkward', 'happy', 'frustrated', 'annoyed', 'confident', 'sarcastic', 'innocent', 'guilty', 'disgusted'];
+
         var userInput;//this is used in the onclick function and in the query URL
-       
+
         var searchBtnClicked = document.getElementById("searchBtn")
 
-        
-        
+
+
         //FUNCTION THAT WILL MAKE BUTTONS FOR THE ITEMS IN THE ARRAY
-        
+
         function createTopicBtn(topic) {
-            
+
             //creates buttons with each topic in the array
             var addingButtons = document.createElement('button')
-            addingButtons.textContent = topic 
+            addingButtons.textContent = topic
 
             //adding an attribute for the ajax call function
             $(addingButtons).attr("emo-data", topic)
-            
+
             //adds the bootstrap class to the button
             $(addingButtons).addClass("btn btn-outline-primary emoBtn")
-            
+
             //append each item to buttonsDiv
             $('#buttonsDiv').append(addingButtons)
         }
-        
+
         function makeButtons() {
-            
+
             //forEach loop to create a button for each item in the array
             //uses the create topic button function to make buttons for the items that are already in the array
             topics.forEach(createTopicBtn)
         }
-        
-        
-        
-        
+
+
+
+
         //this function adds the user input into the topics array
-        
+
         function addTotopicsArray() {
             //clears out the input
             $('#buttonsDiv').empty()
@@ -98,29 +103,29 @@
 
             //event listener
             searchBtnClicked.addEventListener('click', function (event) {
-                
+
                 //keeps the page from clearing out when it refreshes
                 event.preventDefault()
-                
+
                 //what happens when the button is click?
                 //take the user input 
-                
+
                 //takes the user input and make it a value attribute so that we can use the attribute to call it when we need it
                 var userInput = $('#whatUserSearched').val();
-                
+
                 //adds it to the array
                 topics.push(userInput)
-                
+
                 createTopicBtn(userInput)
-                
+
                 console.log(topics)
                 //if the search button is pressed
             })
         }
         addTotopicsArray()
-        
+
         makeButtons()
-        
+
         function getAndDisplayResults() {
             //         //all buttons that have a class of btn so when any of the buttons are clicked, we'll give it an attribute and get the value
             //         //all buttons should have an "emo-data" attribute added to them in  the for each loop
@@ -140,62 +145,62 @@
 
                 for (var i = 0; i < results.length; i++) {
                     //div that will hold everything that is created in js
-                    
+
                     gifDiv = $('<div>')
                     //access to the rating
-                    var Rating = results[i].rating 
-                  
-                     //creating a new p element where the rating will go
-                    var gifRating = $('<p>').text('Rating: ' + Rating)
-                    
-                    //creating a new image element
-                    var newGif =  $('<img>')
-                    //adding an attribute of source to the img element
-                    newGif.attr('src' ,results[i].images.fixed_height_still.url).attr("data-animated",results[i].images.fixed_height.url).attr("class", "picture").attr('data-still',results[i].images.fixed_height_still.url )
- 
+                    var Rating = results[i].rating
 
-                
-                    
+                    //creating a new p element where the rating will go
+                    var gifRating = $('<p>').text('Rating: ' + Rating)
+
+                    //creating a new image element
+                    var newGif = $('<img>')
+                    //adding an attribute of source to the img element
+                    newGif.attr('src', results[i].images.fixed_height_still.url).attr("data-animated", results[i].images.fixed_height.url).attr("class", "picture").attr('data-still', results[i].images.fixed_height_still.url)
+
+
+
+
                     gifDiv.prepend(gifRating)
 
                     gifDiv.prepend(newGif)
-                    
+
                     $('#resultsDiv').prepend(gifDiv)
                     // TO - DO LIST.....
                     //display it
                     //(add it to the div)
-                    }
+                }
             });
 
         }
 
-        function animateGif () {
-                //get the element by id, look for the attribut and save the variable
-                var animatedGif = this.getAttribute('data-animated')
-                //
-           
-                this.setAttribute('src', animatedGif)
+        function animateGif() {
+            //get the element by id, look for the attribut and save the variable
+            var animatedGif = this.getAttribute('data-animated')
+            //
 
-                //replace the still image of the gif to the animated gif..BUT HOW!?        
+            this.setAttribute('src', animatedGif)
 
-                }
+            //replace the still image of the gif to the animated gif..BUT HOW!?        
+
+        }
 
         function backToStill() {
-            
+
             var stillGif = this.getAttribute('data-still')
-           
+
             this.setAttribute('src', stillGif)
         }
-           // Adding click event listeners to all elements with a class of "btn"
+        // Adding click event listeners to all elements with a class of "btn"
         $(document).on("click", ".emoBtn", getAndDisplayResults);
         $(document).on("mouseover", ".picture", animateGif);
         $(document).on("mouseout", ".picture", backToStill);
-        
-   
-            
 
-      
-        </script>
+
+
+
+
+    </script>
 </body>
 
 </html>
