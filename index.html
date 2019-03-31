@@ -9,14 +9,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Stint+Ultra+Expanded|Dawning+of+a+New+Day|Oxygen+Mono" rel="stylesheet">
 
 </head>
 
 <body>
     <div id="container">
-        <nav class="navbar navbar-dark bg-dark" style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-light" >
             <!-- Navbar content -->
-
+            <H1 class="first">GifTastic!⚈</h1>
            
 
             <div id="formDiv">
@@ -30,7 +31,7 @@
             </div>
         </nav>
          <!-- buttonsDiv  will go here -->
-         <div id='buttonsDiv' style="background-color: black;"></div>
+         <div id='buttonsDiv'></div>
          <br>
         <!-- gify resultsDiv will go here -->
 
@@ -48,8 +49,8 @@
     <script>
         // GLOBAL VARIABLES
         
-        var topics = ['curious', 'suspicious', 'surprised', 'awkward', 'joyful', 'frustrated', 'persistant', 'sentimental'];
-        var numberOfGifsDisplayed = 10;// might not want to make this dynamic
+        var topics = ['curious', 'shy', 'surprised', 'awkward', 'happy', 'frustrated', 'annoyed', 'confident','sarcastic', 'innocent','guilty', 'disgusted'];
+       
         var userInput;//this is used in the onclick function and in the query URL
        
         var searchBtnClicked = document.getElementById("searchBtn")
@@ -150,7 +151,7 @@
                     //creating a new image element
                     var newGif =  $('<img>')
                     //adding an attribute of source to the img element
-                    newGif.attr('src' ,results[i].images.fixed_height_still.url).attr("data-animated",results[i].images.fixed_height.url).attr("class", "picture").attr('data-isAnimated', false)
+                    newGif.attr('src' ,results[i].images.fixed_height_still.url).attr("data-animated",results[i].images.fixed_height.url).attr("class", "picture").attr('data-still',results[i].images.fixed_height_still.url )
  
 
                 
@@ -172,23 +173,23 @@
                 //get the element by id, look for the attribut and save the variable
                 var animatedGif = this.getAttribute('data-animated')
                 //
-                console.log(animatedGif)
+           
                 this.setAttribute('src', animatedGif)
 
                 //replace the still image of the gif to the animated gif..BUT HOW!?        
-    
-                    
-                   
-                    
+
                 }
+
+        function backToStill() {
+            
+            var stillGif = this.getAttribute('data-still')
+           
+            this.setAttribute('src', stillGif)
+        }
            // Adding click event listeners to all elements with a class of "btn"
         $(document).on("click", ".emoBtn", getAndDisplayResults);
-        
-
-       
-
         $(document).on("mouseover", ".picture", animateGif);
-        
+        $(document).on("mouseout", ".picture", backToStill);
         
    
             

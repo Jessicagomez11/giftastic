@@ -1,42 +1,80 @@
 
-
+.navbar{
+    background-color: #c8b2aa;
+    opacity: .94;
+    margin-bottom: 5px;
+}
 h1{
-    color: darkturquoise;
-    font-size: 30px;
-    letter-spacing: 3px;
+    color: white;
+    font-size: 75px;
+    letter-spacing: 15px;
+    font-family: 'Stint Ultra Expanded', cursive;
+    text-shadow: 3px 3px 3px gray;
+    font-weight: 600;
+    margin-left: 50px;
+    padding-bottom: 20px;
+    text-transform: lowercase;
+    
     /* text-align: center; */
 }
 #searchBtn{
     color: white;
-    border-color: mediumorchid;
-    background-color: mediumorchid;
+    border-color: #f4c5b4;
+    background-color: #f4c5b4;
+    letter-spacing: 5px;
+    font-weight: 800px;
+    box-shadow: 1px 1px 1px gray;
+
 }
 #searchBtn:hover{
    
-    outline-color: mediumorchid;
+    outline-color: #f4c5b4;
     background-color: white;
-    color:  mediumorchid; 
+    color:  #f4c5b4; 
 }
 #searchBtn:focus{
-    outline-color: mediumorchid;
+    outline-color: #f4c5b4;
 }
-.btn{
-    color: White;
-    border-color: darkturquoise;
-    background-color: darkturquoise;
-    margin: 2px;
+#buttonsDiv{
+ margin-right: 10px;
+ margin-left: 5px;
+
+}
+.btn {
+  
+    margin: 5px 2px;
+    letter-spacing: 2px;
+    font-size: 18px;
+    padding-top: 3px;
+    font-family: 'Oxygen Mono', monospace;
+    border-color: #f4c5b4;
+    background-color: white;
+    color:  grey;
+    
 }
 .btn:hover{
-    border-color: darkturquoise;
-   
-    background-color: white;
-    color:  darkturquoise;
+    color: White;
+    border-color: #f4c5b4;
+    background-color: #f4c5b4;
 }
 
+p{
+    color: #f4c5b4;
+    font-family: 'Oxygen Mono', monospace;
+    font-size: 30px;
+    margin-left: 30px;
+}
+#whatUserSearched{
+        letter-spacing: 3px;
+        font-family: 'Oxygen Mono', monospace;
+}
+#resultsDiv{
+    display: inline-block;
+}
 
-#formDiv {
+/* #formDiv {
     align-content: flex-end;
-}
+} */
 
 /* #whatUserSearched{
     margin-left: auto;
