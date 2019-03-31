@@ -6,10 +6,10 @@
 }
 h1{
     color: white;
-    font-size:40px;
+    font-size:60px;
     letter-spacing: 15px;
-    font-family: 'Stint Ultra Expanded', cursive;
-    text-shadow: 3px 3px 3px gray;
+    font-family: 'Amatic SC', cursive;
+    text-shadow: 10px 10px 10px gray;
     font-weight: 600;
     margin-left: 50px;
     text-transform: lowercase;
@@ -22,7 +22,7 @@ h1{
     background-color: #f4c5b4;
     letter-spacing: 5px;
     font-weight: 800px;
-    box-shadow: 1px 1px 1px gray;
+    box-shadow: 3px 3px 3px gray;
     font-weight: 600;
     text-shadow: #f4a98e;
 
@@ -45,9 +45,9 @@ h1{
   
     margin: 5px 3px;
     letter-spacing: 2px;
-    font-size: 15px;
+    font-size: 25px;
     padding-top: 3px;
-    font-family: 'Oxygen Mono', monospace;
+    font-family: 'Amatic SC', cursive;
     border-color: #f4c5b4;
     background-color: white;
     color:  grey;
@@ -61,17 +61,23 @@ h1{
 }
 
 p{
-    color: #f4c5b4;
+    color: grey;
     font-family: 'Oxygen Mono', monospace;
-    font-size: 20px;
-    margin-left: 30px;
+    font-size: 16px;
+    text-align: center
+    
 }
 #whatUserSearched{
         letter-spacing: 3px;
         font-family: 'Oxygen Mono', monospace;
 }
-#resultsDiv{
+.gifsDiv{
     display: inline-block;
+    width: 90%;
+    align-self: auto;
 
 }
-
+#resultsDiv{
+    margin-right: auto;
+    margin-left: auto;
+}

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Stint+Ultra+Expanded|Dawning+of+a+New+Day|Oxygen+Mono"
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Oxygen+Mono"
         rel="stylesheet">
 
 </head>
@@ -18,7 +18,7 @@
     <div id="container">
         <nav class="navbar navbar-light">
             <!-- Navbar content -->
-            <H1 class="first">GifTastic!⚈</h1>
+            <H1 class="first">GifTastic ❊</h1>
 
 
             <div id="formDiv">
@@ -55,6 +55,7 @@
         // GLOBAL VARIABLES
 
         var topics = ['curious', 'timid', 'surprised', 'awkward', 'happy', 'frustrated', 'annoyed', 'confident', 'sarcastic', 'innocent', 'guilty', 'disgusted'];
+        var offSetNum = 10;
 
         var userInput;//this is used in the onclick function and in the query URL
 
@@ -127,18 +128,20 @@
         makeButtons()
 
         function getAndDisplayResults() {
+            offSetNum++
+            $('#resultsDiv').empty()
             //         //all buttons that have a class of btn so when any of the buttons are clicked, we'll give it an attribute and get the value
             //         //all buttons should have an "emo-data" attribute added to them in  the for each loop
             var emotion = $(this).attr('emo-data')
             var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + emotion +
-                "&api_key=dj24QtphGWzPDgZeL6xbGqreZAG2JVkg&limit=10";
+                "&api_key=dj24QtphGWzPDgZeL6xbGqreZAG2JVkg&limit=12&offset=" + offSetNum;
 
 
             $.ajax({
                 url: queryURL,
                 method: "GET"
             }).then(function (response) {
-                // console.log(response);
+                console.log(response);
                 console.log(response.data);
 
                 var results = response.data;
@@ -147,8 +150,12 @@
                     //div that will hold everything that is created in js
 
                     gifDiv = $('<div>')
+                    
+                        gifDiv.attr('class', 'col-lg-2 col-md-4 col-sm-6 gifsDiv')
                     //access to the rating
                     var Rating = results[i].rating
+                    var title = results[i].title
+                    console.log(title)
 
                     //creating a new p element where the rating will go
                     var gifRating = $('<p>').text('Rating: ' + Rating)
@@ -156,7 +163,7 @@
                     //creating a new image element
                     var newGif = $('<img>')
                     //adding an attribute of source to the img element
-                    newGif.attr('src', results[i].images.fixed_height_still.url).attr("data-animated", results[i].images.fixed_height.url).attr("class", "picture").attr('data-still', results[i].images.fixed_height_still.url)
+                    newGif.attr('src', results[i].images.fixed_width_still.url).attr("data-animated", results[i].images.fixed_width.url).attr("class", "picture").attr('data-still', results[i].images.fixed_width_still.url).attr('alt',title)
 
 
 
